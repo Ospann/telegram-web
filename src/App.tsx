@@ -2,7 +2,7 @@ import { useState, ChangeEvent, useEffect } from 'react';
 import useTelegram from './utils/hooks/useTelegram';
 
 const App = () => {
-  const { onToggleButton, onShowButton } = useTelegram();
+  const { onShowButton } = useTelegram();
   const [formData, setFormData] = useState({
     client: '',
     project: '',
