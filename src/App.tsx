@@ -13,10 +13,13 @@ const App = () => {
   });
 
   useEffect(() => {
-    if (formData.client !== '' &&
-      formData.project !== '' &&
-      // (formData.hour !== '' || formData.minute !== '') &&
-      formData.date !== '') {
+    console.log(formData)
+    if (
+      formData.client !== '' &&
+      // formData.project !== '' &&
+      (formData.hour !== '' || formData.minute !== '') &&
+      formData.date !== ''
+    ) {
       onShowButton()
     } else {
       onHideButton();
@@ -29,6 +32,8 @@ const App = () => {
     HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
   >) => {
     const { name, value } = target;
+    console.log(name)
+    console.log(value)
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
