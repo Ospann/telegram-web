@@ -2,7 +2,7 @@ import { useState, ChangeEvent, useEffect } from 'react';
 import useTelegram from './utils/hooks/useTelegram';
 
 const App = () => {
-  const { onToggleButton } = useTelegram();
+  const { onToggleButton, onShowButton } = useTelegram();
   const [formData, setFormData] = useState({
     client: '',
     project: '',
@@ -35,8 +35,8 @@ const App = () => {
   };
 
   useEffect(() => {
-    onToggleButton();
-  }, [isFormValid, onToggleButton]);
+    onShowButton();
+  }, [isFormValid, onShowButton]);
 
   return (
     <div className="input-form">

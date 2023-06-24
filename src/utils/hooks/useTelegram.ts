@@ -21,9 +21,14 @@ const useTelegram = () => {
     }
   };
 
+  const onShowButton = () =>{
+    tg.MainButton.show();
+  }
+
   return {
     onClose,
     onToggleButton,
+    onShowButton,
     tg,
     user: tg.initDataUnsafe?.user,
     queryId: tg.initDataUnsafe?.query_id,
