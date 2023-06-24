@@ -8,7 +8,7 @@ declare global {
 
 const tg = window.Telegram.WebApp;
 
-export function useTelegram() {
+const useTelegram = () => {
   const onClose = () => {
     tg.close();
   };
@@ -28,4 +28,6 @@ export function useTelegram() {
     user: tg.initDataUnsafe?.user,
     queryId: tg.initDataUnsafe?.query_id,
   };
-}
+};
+
+export default useTelegram;

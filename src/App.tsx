@@ -1,6 +1,8 @@
 import { useState, ChangeEvent } from 'react';
+import useTelegram from './utils/hooks/useTelegram';
 
-function App() {
+const App = () => {
+  const { onToggleButton } = useTelegram();
   const [formData, setFormData] = useState({
     client: '',
     project: '',
@@ -16,7 +18,10 @@ function App() {
       ...prevData,
       [name]: value,
     }));
+    onToggleButton();
   };
+
+
 
   return (
     <div className="input-form">
