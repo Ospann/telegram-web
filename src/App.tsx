@@ -15,7 +15,7 @@ const App = () => {
   useEffect(() => {
     if (formData.client !== '' &&
       formData.project !== '' &&
-      (formData.hour !== '' || formData.minute !== '') &&
+      // (formData.hour !== '' || formData.minute !== '') &&
       formData.date !== '') {
       onShowButton()
     } else {
