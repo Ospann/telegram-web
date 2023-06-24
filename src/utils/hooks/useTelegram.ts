@@ -25,10 +25,15 @@ const useTelegram = () => {
     tg.MainButton.show();
   }
 
+  const onHideButton = () =>{
+    tg.MainButton.hide();
+  }
+
   return {
     onClose,
     onToggleButton,
     onShowButton,
+    onHideButton,
     tg,
     user: tg.initDataUnsafe?.user,
     queryId: tg.initDataUnsafe?.query_id,

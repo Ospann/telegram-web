@@ -2,7 +2,7 @@ import { useState, ChangeEvent, useEffect } from 'react';
 import useTelegram from './utils/hooks/useTelegram';
 
 const App = () => {
-  const { onShowButton } = useTelegram();
+  const { onShowButton, onHideButton } = useTelegram();
   const [formData, setFormData] = useState({
     client: '',
     project: '',
@@ -11,16 +11,17 @@ const App = () => {
     date: '',
     comment: '',
   });
-  const [isFormValid, setIsFormValid] = useState(false);
 
   useEffect(() => {
-    const isValid =
-      formData.client !== '' &&
+    if (formData.client !== '' &&
       formData.project !== '' &&
       (formData.hour !== '' || formData.minute !== '') &&
-      formData.date !== '';
-    setIsFormValid(isValid);
-  }, [formData]);
+      formData.date !== '') {
+      onShowButton()
+    } else {
+      onHideButton();
+    }
+  }, [formData, onHideButton, onShowButton]);
 
   const handleChange = ({
     target,
@@ -33,10 +34,6 @@ const App = () => {
       [name]: value,
     }));
   };
-
-  useEffect(() => {
-    onShowButton();
-  }, [isFormValid, onShowButton]);
 
   return (
     <div className="input-form">
