@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 import useTelegram from './utils/hooks/useTelegram';
 
 const App = () => {
@@ -11,17 +11,32 @@ const App = () => {
     date: '',
     comment: '',
   });
+  const [isFormValid, setIsFormValid] = useState(false);
 
-  const handleChange = ({ target }: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  useEffect(() => {
+    const isValid =
+      formData.client !== '' &&
+      formData.project !== '' &&
+      (formData.hour !== '' || formData.minute !== '') &&
+      formData.date !== '';
+    setIsFormValid(isValid);
+  }, [formData]);
+
+  const handleChange = ({
+    target,
+  }: ChangeEvent<
+    HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+  >) => {
     const { name, value } = target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
-    onToggleButton();
   };
 
-
+  useEffect(() => {
+    onToggleButton();
+  }, [isFormValid, onToggleButton]);
 
   return (
     <div className="input-form">
@@ -32,17 +47,13 @@ const App = () => {
         value={formData.client}
         onChange={handleChange}
       />
-      <select
-        name="project"
-        value={formData.project}
-        onChange={handleChange}
-      >
+      <select name="project" value={formData.project} onChange={handleChange}>
         <option value="">test</option>
         <option value="">test</option>
         <option value="">test</option>
       </select>
       <input
-        placeholder='hours'
+        placeholder="hours"
         type="number"
         name="hour"
         value={formData.hour}
@@ -51,7 +62,7 @@ const App = () => {
       <input
         type="number"
         name="minute"
-        placeholder='minutes'
+        placeholder="minutes"
         value={formData.minute}
         onChange={handleChange}
       />
@@ -62,7 +73,7 @@ const App = () => {
         onChange={handleChange}
       />
       <textarea
-        placeholder='comment...'
+        placeholder="comment..."
         name="comment"
         cols={30}
         rows={3}
@@ -72,6 +83,6 @@ const App = () => {
       />
     </div>
   );
-}
+};
 
 export default App;
