@@ -9,10 +9,20 @@ body {
   color: var(--tg-theme-text-color);
 }
 
-.input-form{
-  width:100%;
-  height: 100%;
+.input-form {
+  width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   align-items: center;
+}
+
+.input-form select,
+input,
+textarea {
+  border-radius: 5px;
+  border:1px solid #e6e6e6;
+  padding: 10px;
+  width: 80%;
 }
