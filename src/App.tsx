@@ -104,6 +104,7 @@ const App = () => {
         type="number"
         name="hour"
         value={formData.hour}
+        readOnly
         onChange={handleHourChange}
         onWheel={handleHourScroll} // Добавляем обработчик скроллинга
       />
@@ -111,6 +112,7 @@ const App = () => {
         type="number"
         name="minute"
         placeholder="minutes"
+        readOnly
         value={formData.minute}
         onChange={handleMinuteChange}
         onWheel={handleMinuteScroll} // Добавляем обработчик скроллинга
