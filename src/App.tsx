@@ -58,13 +58,6 @@ const App = () => {
     }));
   };
 
-  // Обработчик тяги для часов
-  const handleHourDrag = (event: React.TouchEvent<HTMLInputElement>) => {
-    event.preventDefault();
-    const startY = event.touches[0].clientY;
-    event.currentTarget.dataset.startY = startY.toString();
-  };
-
   // Обработчик окончания тяги для часов
   const handleHourDragEnd = (event: React.TouchEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -80,12 +73,6 @@ const App = () => {
     }));
   };
 
-  // Обработчик тяги для минут
-  const handleMinuteDrag = (event: React.TouchEvent<HTMLInputElement>) => {
-    event.preventDefault();
-    const startY = event.touches[0].clientY;
-    event.currentTarget.dataset.startY = startY.toString();
-  };
 
   // Обработчик окончания тяги для минут
   const handleMinuteDragEnd = (event: React.TouchEvent<HTMLInputElement>) => {
@@ -101,6 +88,38 @@ const App = () => {
       minute: value.toString().padStart(2, '0'),
     }));
   };
+
+  const handleHourDrag = (event: React.TouchEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    const startY = event.touches[0].clientY;
+    event.currentTarget.dataset.startY = startY.toString();
+
+    // Обновляем значение времени во время свайпа
+    const increment = Math.floor(-event.touches[0].clientY + startY) / 15; // Здесь можно настроить чувствительность свайпа, чем больше число, тем меньше чувствительность
+    let value = parseInt(formData.hour, 10) + increment;
+    value = Math.min(Math.max(value, 0), 24);
+    setFormData((prevData) => ({
+      ...prevData,
+      hour: value.toString().padStart(2, '0'),
+    }));
+  };
+
+  // Обработчик тяги для минут
+  const handleMinuteDrag = (event: React.TouchEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    const startY = event.touches[0].clientY;
+    event.currentTarget.dataset.startY = startY.toString();
+
+    // Обновляем значение времени во время свайпа
+    const increment = Math.floor(-event.touches[0].clientY + startY) / 15; // Здесь можно настроить чувствительность свайпа, чем больше число, тем меньше чувствительность
+    let value = parseInt(formData.minute, 10) + increment;
+    value = Math.min(Math.max(value, 0), 59);
+    setFormData((prevData) => ({
+      ...prevData,
+      minute: value.toString().padStart(2, '0'),
+    }));
+  };
+
 
   return (
     <div className="input-form">
@@ -122,6 +141,7 @@ const App = () => {
         name="hour"
         value={formData.hour}
         onChange={handleHourChange}
+        onTouchMove={handleHourDrag}
         onTouchStart={handleHourDrag}
         onTouchEnd={handleHourDragEnd}
       />
@@ -130,6 +150,7 @@ const App = () => {
         name="minute"
         placeholder="minutes"
         value={formData.minute}
+        onTouchMove={handleMinuteDrag}
         onChange={handleMinuteChange}
         onTouchStart={handleMinuteDrag}
         onTouchEnd={handleMinuteDragEnd}
