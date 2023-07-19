@@ -6,21 +6,21 @@ const App = () => {
   const [formData, setFormData] = useState({
     client: '',
     project: '',
-    hour: '',
-    minute: '',
+    hour: '00',
+    minute: '00',
     date: '',
     comment: '',
   });
 
   useEffect(() => {
-    console.log(formData)
+    console.log(formData);
     if (
       formData.client !== '' &&
       // formData.project !== '' &&
       (formData.hour !== '' || formData.minute !== '') &&
       formData.date !== ''
     ) {
-      onShowButton()
+      onShowButton();
     } else {
       onHideButton();
     }
@@ -32,8 +32,6 @@ const App = () => {
     HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
   >) => {
     const { name, value } = target;
-    console.log(name)
-    console.log(value)
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -60,29 +58,49 @@ const App = () => {
     }));
   };
 
-  // Обработчик скроллинга для часов
-  const handleHourScroll = (event: React.WheelEvent<HTMLInputElement>) => {
-    const increment = event.deltaY > 0 ? 1 : -1; // Определяем направление скроллинга
+  // Обработчик начала тяги для часов
+  const handleHourDragStart = (event: React.TouchEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    const startY = event.touches[0].clientY;
+    event.currentTarget.dataset.startY = startY.toString();
+  };
+
+  // Обработчик окончания тяги для часов
+
+  const handleHourDragEnd = (event: React.TouchEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    const startY = parseInt(event.currentTarget.dataset.startY || '0', 10);
+    const endY = event.changedTouches[0].clientY;
+    const diff = startY - endY;
+    const increment = diff > 0 ? 1 : -1;
     let value = parseInt(formData.hour, 10) + increment;
     value = Math.min(Math.max(value, 0), 24);
     setFormData((prevData) => ({
       ...prevData,
-      hour: value.toString().padStart(2, '0'), // Добавляем ведущий ноль для однозначных чисел (например, 5 => 05)
+      hour: value.toString().padStart(2, '0'),
     }));
-    event.preventDefault(); // Предотвращаем прокрутку страницы при скроллинге внутри инпута
   };
 
-  // Обработчик скроллинга для минут
-  const handleMinuteScroll = (event: React.WheelEvent<HTMLInputElement>) => {
-    console.log('скроллинг')
-    const increment = event.deltaY > 0 ? 1 : -1; // Определяем направление скроллинга
+  // Обработчик начала тяги для минут
+  const handleMinuteDragStart = (event: React.TouchEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    const startY = event.touches[0].clientY;
+    event.currentTarget.dataset.startY = startY.toString();
+  };
+
+  // Обработчик окончания тяги для минут
+  const handleMinuteDragEnd = (event: React.TouchEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    const startY = parseInt(event.currentTarget.dataset.startY || '0', 10);
+    const endY = event.changedTouches[0].clientY;
+    const diff = startY - endY;
+    const increment = diff > 0 ? 1 : -1;
     let value = parseInt(formData.minute, 10) + increment;
     value = Math.min(Math.max(value, 0), 59);
     setFormData((prevData) => ({
       ...prevData,
-      minute: value.toString().padStart(2, '0'), // Добавляем ведущий ноль для однозначных чисел (например, 5 => 05)
+      minute: value.toString().padStart(2, '0'),
     }));
-    event.preventDefault(); // Предотвращаем прокрутку страницы при скроллинге внутри инпута
   };
 
   return (
@@ -104,18 +122,18 @@ const App = () => {
         type="number"
         name="hour"
         value={formData.hour}
-        readOnly
         onChange={handleHourChange}
-        onWheel={handleHourScroll} // Добавляем обработчик скроллинга
+        onTouchStart={handleHourDragStart}
+        onTouchEnd={handleHourDragEnd}
       />
       <input
         type="number"
         name="minute"
         placeholder="minutes"
-        readOnly
         value={formData.minute}
         onChange={handleMinuteChange}
-        onWheel={handleMinuteScroll} // Добавляем обработчик скроллинга
+        onTouchStart={handleMinuteDragStart}
+        onTouchEnd={handleMinuteDragEnd}
       />
       <input
         type="date"
