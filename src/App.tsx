@@ -58,21 +58,20 @@ const App = () => {
     }));
   };
 
-  // Обработчик начала тяги для часов
-  const handleHourDragStart = (event: React.TouchEvent<HTMLInputElement>) => {
+  // Обработчик тяги для часов
+  const handleHourDrag = (event: React.TouchEvent<HTMLInputElement>) => {
     event.preventDefault();
     const startY = event.touches[0].clientY;
     event.currentTarget.dataset.startY = startY.toString();
   };
 
   // Обработчик окончания тяги для часов
-
   const handleHourDragEnd = (event: React.TouchEvent<HTMLInputElement>) => {
     event.preventDefault();
     const startY = parseInt(event.currentTarget.dataset.startY || '0', 10);
     const endY = event.changedTouches[0].clientY;
     const diff = startY - endY;
-    const increment = diff > 0 ? 1 : -1;
+    const increment = Math.floor(diff / 15); // Здесь можно настроить чувствительность свайпа, чем больше число, тем меньше чувствительность
     let value = parseInt(formData.hour, 10) + increment;
     value = Math.min(Math.max(value, 0), 24);
     setFormData((prevData) => ({
@@ -81,8 +80,8 @@ const App = () => {
     }));
   };
 
-  // Обработчик начала тяги для минут
-  const handleMinuteDragStart = (event: React.TouchEvent<HTMLInputElement>) => {
+  // Обработчик тяги для минут
+  const handleMinuteDrag = (event: React.TouchEvent<HTMLInputElement>) => {
     event.preventDefault();
     const startY = event.touches[0].clientY;
     event.currentTarget.dataset.startY = startY.toString();
@@ -94,7 +93,7 @@ const App = () => {
     const startY = parseInt(event.currentTarget.dataset.startY || '0', 10);
     const endY = event.changedTouches[0].clientY;
     const diff = startY - endY;
-    const increment = diff > 0 ? 1 : -1;
+    const increment = Math.floor(diff / 15); // Здесь можно настроить чувствительность свайпа, чем больше число, тем меньше чувствительность
     let value = parseInt(formData.minute, 10) + increment;
     value = Math.min(Math.max(value, 0), 59);
     setFormData((prevData) => ({
@@ -123,7 +122,7 @@ const App = () => {
         name="hour"
         value={formData.hour}
         onChange={handleHourChange}
-        onTouchStart={handleHourDragStart}
+        onTouchStart={handleHourDrag}
         onTouchEnd={handleHourDragEnd}
       />
       <input
@@ -132,7 +131,7 @@ const App = () => {
         placeholder="minutes"
         value={formData.minute}
         onChange={handleMinuteChange}
-        onTouchStart={handleMinuteDragStart}
+        onTouchStart={handleMinuteDrag}
         onTouchEnd={handleMinuteDragEnd}
       />
       <input
