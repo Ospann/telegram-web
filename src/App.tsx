@@ -60,6 +60,30 @@ const App = () => {
     }));
   };
 
+  // Обработчик скроллинга для часов
+  const handleHourScroll = (event: React.WheelEvent<HTMLInputElement>) => {
+    const increment = event.deltaY > 0 ? 1 : -1; // Определяем направление скроллинга
+    let value = parseInt(formData.hour, 10) + increment;
+    value = Math.min(Math.max(value, 0), 24);
+    setFormData((prevData) => ({
+      ...prevData,
+      hour: value.toString().padStart(2, '0'), // Добавляем ведущий ноль для однозначных чисел (например, 5 => 05)
+    }));
+    event.preventDefault(); // Предотвращаем прокрутку страницы при скроллинге внутри инпута
+  };
+
+  // Обработчик скроллинга для минут
+  const handleMinuteScroll = (event: React.WheelEvent<HTMLInputElement>) => {
+    const increment = event.deltaY > 0 ? 1 : -1; // Определяем направление скроллинга
+    let value = parseInt(formData.minute, 10) + increment;
+    value = Math.min(Math.max(value, 0), 59);
+    setFormData((prevData) => ({
+      ...prevData,
+      minute: value.toString().padStart(2, '0'), // Добавляем ведущий ноль для однозначных чисел (например, 5 => 05)
+    }));
+    event.preventDefault(); // Предотвращаем прокрутку страницы при скроллинге внутри инпута
+  };
+
   return (
     <div className="input-form">
       <input
@@ -79,14 +103,16 @@ const App = () => {
         type="number"
         name="hour"
         value={formData.hour}
-        onChange={handleHourChange} // Используем обновленный обработчик
+        onChange={handleHourChange}
+        onWheel={handleHourScroll} // Добавляем обработчик скроллинга
       />
       <input
         type="number"
         name="minute"
         placeholder="minutes"
         value={formData.minute}
-        onChange={handleMinuteChange} // Используем обновленный обработчик
+        onChange={handleMinuteChange}
+        onWheel={handleMinuteScroll} // Добавляем обработчик скроллинга
       />
       <input
         type="date"
