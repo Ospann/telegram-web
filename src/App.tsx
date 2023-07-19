@@ -102,24 +102,26 @@ const App = () => {
         <option value="">test</option>
         <option value="">test</option>
       </select>
-      <input
-        placeholder="hours"
-        type="number"
-        name="hour"
-        value={formData.hour}
-        onChange={handleHourChange}
-        onTouchStart={(event) => event.currentTarget.dataset.startY = event.touches[0].clientY.toString()}
-        onTouchEnd={handleHourDragEnd}
-      />
-      <input
-        type="number"
-        name="minute"
-        placeholder="minutes"
-        value={formData.minute}
-        onChange={handleMinuteChange}
-        onTouchStart={(event) => event.currentTarget.dataset.startY = event.touches[0].clientY.toString()}
-        onTouchEnd={handleMinuteDragEnd}
-      />
+      <div className='time-form'>
+        <input
+          placeholder="hours"
+          type="number"
+          name="hour"
+          value={formData.hour}
+          onChange={handleHourChange}
+          onTouchStart={(event) => event.currentTarget.dataset.startY = event.touches[0].clientY.toString()}
+          onTouchEnd={handleHourDragEnd}
+        />
+        <input
+          type="number"
+          name="minute"
+          placeholder="minutes"
+          value={formData.minute}
+          onChange={handleMinuteChange}
+          onTouchStart={(event) => event.currentTarget.dataset.startY = event.touches[0].clientY.toString()}
+          onTouchEnd={handleMinuteDragEnd}
+        />
+      </div>
       <input
         type="date"
         name="date"
