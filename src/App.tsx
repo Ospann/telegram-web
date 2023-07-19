@@ -40,6 +40,26 @@ const App = () => {
     }));
   };
 
+  // Функция, которая ограничивает значения часов до 24
+  const handleHourChange = (event: ChangeEvent<HTMLInputElement>) => {
+    let value = parseInt(event.target.value, 10);
+    value = Math.min(Math.max(value, 0), 24);
+    setFormData((prevData) => ({
+      ...prevData,
+      hour: value.toString().padStart(2, '0'), // Добавляем ведущий ноль для однозначных чисел (например, 5 => 05)
+    }));
+  };
+
+  // Функция, которая ограничивает значения минут до 60
+  const handleMinuteChange = (event: ChangeEvent<HTMLInputElement>) => {
+    let value = parseInt(event.target.value, 10);
+    value = Math.min(Math.max(value, 0), 59);
+    setFormData((prevData) => ({
+      ...prevData,
+      minute: value.toString().padStart(2, '0'), // Добавляем ведущий ноль для однозначных чисел (например, 5 => 05)
+    }));
+  };
+
   return (
     <div className="input-form">
       <input
@@ -59,14 +79,14 @@ const App = () => {
         type="number"
         name="hour"
         value={formData.hour}
-        onChange={handleChange}
+        onChange={handleHourChange} // Используем обновленный обработчик
       />
       <input
         type="number"
         name="minute"
         placeholder="minutes"
         value={formData.minute}
-        onChange={handleChange}
+        onChange={handleMinuteChange} // Используем обновленный обработчик
       />
       <input
         type="date"
