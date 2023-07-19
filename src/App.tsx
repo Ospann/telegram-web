@@ -74,6 +74,7 @@ const App = () => {
 
   // Обработчик скроллинга для минут
   const handleMinuteScroll = (event: React.WheelEvent<HTMLInputElement>) => {
+    console.log('скроллинг')
     const increment = event.deltaY > 0 ? 1 : -1; // Определяем направление скроллинга
     let value = parseInt(formData.minute, 10) + increment;
     value = Math.min(Math.max(value, 0), 59);
