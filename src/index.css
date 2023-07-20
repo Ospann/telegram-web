@@ -31,6 +31,7 @@ textarea {
   font-size: 1.4rem;
 }
 
+.input-form select,
 input {
   text-align: center;
 }
