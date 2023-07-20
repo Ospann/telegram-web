@@ -114,7 +114,7 @@ const App = () => {
         placeholder="Client Search"
         value={formData.client}
         onChange={handleChange}
-        list="clients" // Добавляем атрибут list для связи с datalist
+        list="clients" 
       />
       <datalist id="clients">
         {clients?.map((client) => (
@@ -125,7 +125,7 @@ const App = () => {
         name="project"
         value={formData.project}
         onChange={handleChange}
-        disabled={!formData.client} // Блокируем select, если не выбран клиент
+        disabled={!formData.client}
       >
         <option value="">Select a project</option>
         {formData.client &&
@@ -167,7 +167,7 @@ const App = () => {
         placeholder="comment..."
         name="comment"
         cols={30}
-        rows={3}
+        rows={4}
         style={{ resize: 'none' }}
         value={formData.comment}
         onChange={handleChange}
