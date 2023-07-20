@@ -3,12 +3,15 @@ import useTelegram from './utils/hooks/useTelegram';
 
 const App = () => {
   const { onShowButton, onHideButton } = useTelegram();
+  const today = new Date();
+  const initialDate = `${today.getFullYear()}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
+
   const [formData, setFormData] = useState({
     client: '',
     project: '',
     hour: '00',
     minute: '00',
-    date: '',
+    date: initialDate,
     comment: '',
   });
 
