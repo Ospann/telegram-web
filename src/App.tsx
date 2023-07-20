@@ -84,7 +84,7 @@ const App = () => {
     const diff = startY - endY;
     const increment = diff > 0 ? 1 : -1;
     let value = parseInt(formData.hour, 10) + increment;
-    value = Math.min(Math.max(value, 0), 24);
+    value = Math.min(Math.max(value, 0), 23);
     setFormData((prevData) => ({
       ...prevData,
       hour: value.toString().padStart(2, '0'),

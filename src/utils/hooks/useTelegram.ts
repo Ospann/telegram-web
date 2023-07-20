@@ -21,13 +21,14 @@ const useTelegram = () => {
     }
   };
 
-  const onShowButton = () =>{
+  const onShowButton = () => {
+    tg.MainButton.text = "SUBMIT";
     tg.MainButton.show();
-  }
+  };
 
-  const onHideButton = () =>{
+  const onHideButton = () => {
     tg.MainButton.hide();
-  }
+  };
 
   return {
     onClose,
