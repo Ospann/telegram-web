@@ -1,11 +1,15 @@
 import { useState, ChangeEvent, useEffect } from 'react';
 import useTelegram from './utils/hooks/useTelegram';
 
+type Project = { name: string; project: string[]; }
+
 const App = () => {
   const { onShowButton, onHideButton } = useTelegram();
   const today = new Date();
   const initialDate = `${today.getFullYear()}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
 
+
+  const [clients, setClients] = useState<Project[]>();
   const [formData, setFormData] = useState({
     client: '',
     project: '',
@@ -16,10 +20,21 @@ const App = () => {
   });
 
   useEffect(() => {
-    console.log(formData);
+    setClients([
+      {
+        name: "Qamal",
+        project: ["test", "Абон обслуживание"]
+      },
+      {
+        name: "Fragrancia",
+        project: ["test", "shop"]
+      }])
+  }, [])
+
+  useEffect(() => {
     if (
       formData.client !== '' &&
-      // formData.project !== '' &&
+      formData.project !== '' &&
       (formData.hour !== '' || formData.minute !== '') &&
       formData.date !== ''
     ) {
@@ -82,7 +97,7 @@ const App = () => {
     const startY = parseInt(event.currentTarget.dataset.startY || '0', 10);
     const endY = event.changedTouches[0].clientY;
     const diff = startY - endY;
-    const increment = diff > 0 ? 1 : -1;
+    const increment = diff > 0 ? 5 : -5;
     let value = parseInt(formData.minute, 10) + increment;
     value = Math.min(Math.max(value, 0), 59);
     setFormData((prevData) => ({
@@ -99,11 +114,28 @@ const App = () => {
         placeholder="Client Search"
         value={formData.client}
         onChange={handleChange}
+        list="clients" // Добавляем атрибут list для связи с datalist
       />
-      <select name="project" value={formData.project} onChange={handleChange}>
-        <option value="">test</option>
-        <option value="">test</option>
-        <option value="">test</option>
+      <datalist id="clients">
+        {clients?.map((client) => (
+          <option key={client.name} value={client.name} />
+        ))}
+      </datalist>
+      <select
+        name="project"
+        value={formData.project}
+        onChange={handleChange}
+        disabled={!formData.client} // Блокируем select, если не выбран клиент
+      >
+        <option value="">Select a project</option>
+        {formData.client &&
+          clients
+            ?.find((client) => client.name === formData.client)
+            ?.project.map((project) => (
+              <option key={project} value={project}>
+                {project}
+              </option>
+            ))}
       </select>
       <div className='time-form'>
         <input
