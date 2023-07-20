@@ -4,10 +4,9 @@ import useTelegram from './utils/hooks/useTelegram';
 type Project = { name: string; project: string[]; }
 
 const App = () => {
-  const { onShowButton, onHideButton } = useTelegram();
+  const { onShowButton, onHideButton, tg } = useTelegram();
   const today = new Date();
   const initialDate = `${today.getFullYear()}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
-
 
   const [clients, setClients] = useState<Project[]>();
   const [formData, setFormData] = useState({
@@ -18,6 +17,18 @@ const App = () => {
     date: initialDate,
     comment: '',
   });
+
+  //Function after submit button
+  tg.MainButton.onClick(
+    setFormData({
+      client: '',
+      project: '',
+      hour: '00',
+      minute: '00',
+      date: initialDate,
+      comment: '',
+    })
+  )
 
   useEffect(() => {
     setClients([
@@ -114,7 +125,7 @@ const App = () => {
         placeholder="Client Search"
         value={formData.client}
         onChange={handleChange}
-        list="clients" 
+        list="clients"
       />
       <datalist id="clients">
         {clients?.map((client) => (
