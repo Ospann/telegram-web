@@ -19,16 +19,27 @@ const App = () => {
   });
 
   //Function after submit button
-  tg.MainButton.onClick(
-    setFormData({
-      client: '',
-      project: '',
-      hour: '00',
-      minute: '00',
-      date: initialDate,
-      comment: '',
-    })
-  )
+  // tg.MainButton.onClick(
+  //   setFormData({
+  //     client: '',
+  //     project: '',
+  //     hour: '00',
+  //     minute: '00',
+  //     date: initialDate,
+  //     comment: '',
+  //   })
+  // )
+
+  tg.MainButton.onClick = () => {
+      setFormData({
+        client: '',
+        project: '',
+        hour: '00',
+        minute: '00',
+        date: initialDate,
+        comment: '',
+      })
+    }
 
   useEffect(() => {
     setClients([
