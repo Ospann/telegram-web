@@ -9,6 +9,8 @@ const App = () => {
   const initialDate = `${today.getFullYear()}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
 
   const [clients, setClients] = useState<Project[]>();
+  const [message, setMessage] = useState();
+  const open = Boolean(message)
   const [formData, setFormData] = useState({
     client: '',
     project: '',
@@ -55,6 +57,7 @@ const App = () => {
         console.log(data);
       })
       .catch((error) => {
+        setMessage(error.message);
         console.error('Error during fetch:', error);
       });
   });
@@ -147,6 +150,11 @@ const App = () => {
 
   return (
     <div className="input-form">
+      <div style={{
+        display: open ? 'block' : 'none'
+      }}>
+        {message}
+      </div>
       <select
         name="client"
         value={formData.client}
