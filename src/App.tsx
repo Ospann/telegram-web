@@ -55,7 +55,7 @@ const App = () => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-        setMessage(formData.client);
+        setMessage(formData.hour);
         resetFormData();
         return response.json();
       })
