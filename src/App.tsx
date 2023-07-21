@@ -129,19 +129,18 @@ const App = () => {
 
   return (
     <div className="input-form">
-      <input
-        type="text"
+      <select
         name="client"
-        placeholder="Client Search"
         value={formData.client}
         onChange={handleChange}
-        list="clients"
-      />
-      <datalist id="clients">
+      >
+        <option value="">Select a client</option>
         {clients?.map((client) => (
-          <option key={client.name} value={client.name} />
+          <option key={client.name} value={client.name}>
+            {client.name}
+          </option>
         ))}
-      </datalist>
+      </select>
       <select
         name="project"
         value={formData.project}
