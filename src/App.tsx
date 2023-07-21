@@ -28,7 +28,7 @@ const App = () => {
     minute: '00',
     date: initialDate,
     comment: '',
-    user: user.id,
+    user: '',
   });
 
   const resetFormData = () => {
@@ -39,7 +39,7 @@ const App = () => {
       minute: '00',
       date: initialDate,
       comment: '',
-      user: user.id,
+      user: '',
     });
   };
 
@@ -67,7 +67,7 @@ const App = () => {
         setMessage(error);
         console.error('Error during fetch:', error);
       });
-  }, [formData, initialDate, user]);
+  }, [formData, initialDate]);
 
   useEffect(() => {
     fetch('https://test.maxinum.kz/api/hours/meta')
