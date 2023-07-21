@@ -20,18 +20,7 @@ const App = () => {
     comment: '',
   });
 
-  tg.onEvent('mainButtonClicked', () => {
-    setFormData({
-      client: '',
-      project: '',
-      hour: '00',
-      minute: '00',
-      date: initialDate,
-      comment: '',
-    });
-  });
-
-  tg.onEvent('mainButtonClicked', () => {
+  const sendData = () => {
     fetch('https://test.maxinum.kz/api/hours/', {
       method: 'POST',
       headers: {
@@ -60,7 +49,7 @@ const App = () => {
         setMessage(error);
         console.error('Error during fetch:', error);
       });
-  });
+  }
 
   useEffect(() => {
     fetch('https://test.maxinum.kz/api/hours/meta')
@@ -71,6 +60,10 @@ const App = () => {
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
+
+    tg.onEvent('mainButtonClicked', () => {
+      sendData();
+    });
   }, []);
 
   useEffect(() => {
