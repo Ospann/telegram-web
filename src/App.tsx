@@ -75,7 +75,7 @@ const App = () => {
     if (
       formData.client !== '' &&
       formData.project !== '' &&
-      (formData.hour !== '' || formData.minute !== '') &&
+      (formData.hour !== '00' || formData.minute !== '00') &&
       formData.date !== ''
     ) {
       onShowButton();
