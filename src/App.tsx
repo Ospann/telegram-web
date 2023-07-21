@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, useEffect } from 'react';
+import { useState, ChangeEvent, useEffect, useCallback } from 'react';
 import useTelegram from './utils/hooks/useTelegram';
 
 type Project = { name: string; projects: string[]; }
@@ -43,18 +43,19 @@ const App = () => {
     });
   };
 
-  const sendData = (sendFormData: FormData) => {
+  const sendData = useCallback(() => {
     fetch('https://test.maxinum.kz/api/hours/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(sendFormData),
+      body: JSON.stringify(formData),
     })
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
+        setMessage(formData.hour);
         resetFormData();
         return response.json();
       })
@@ -65,7 +66,7 @@ const App = () => {
         setMessage(error);
         console.error('Error during fetch:', error);
       });
-  };
+  }, [formData]);
 
   useEffect(() => {
     fetch('https://test.maxinum.kz/api/hours/meta')
@@ -79,14 +80,12 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    tg.offEvent('mainButtonClicked', () => {
-      sendData(formData);
-    });
-    tg.onEvent('mainButtonClicked', () => {
-      sendData(formData);
-    });
+    tg.onEvent('mainButtonClicked', sendData);
 
-  }, [formData])
+    return () => {
+      tg.offEvent('mainButtonClicked', sendData);
+    };
+  }, [sendData, tg])
 
   useEffect(() => {
     if (
