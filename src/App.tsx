@@ -3,6 +3,15 @@ import useTelegram from './utils/hooks/useTelegram';
 
 type Project = { name: string; projects: string[]; }
 
+type FormData = {
+  client: string;
+  project: string;
+  hour: string;
+  minute: string;
+  date: string;
+  comment: string;
+}
+
 const App = () => {
   const { onShowButton, onHideButton, tg } = useTelegram();
   const today = new Date();
@@ -11,7 +20,7 @@ const App = () => {
   const [clients, setClients] = useState<Project[]>();
   const [message, setMessage] = useState();
   const open = Boolean(message)
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     client: '',
     project: '',
     hour: '00',
@@ -19,14 +28,13 @@ const App = () => {
     date: initialDate,
     comment: '',
   });
-  console.log(formData)
-  const sendData = () => {
+  const sendData = (formDataToSend: FormData) => {
     fetch('https://test.maxinum.kz/api/hours/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(formDataToSend),
     })
       .then((response) => {
         if (!response.ok) {
@@ -62,11 +70,12 @@ const App = () => {
       });
 
     tg.onEvent('mainButtonClicked', () => {
-      sendData();
+      sendData(formData);
     });
+
     return () => {
       tg.offEvent('mainButtonClicked', () => {
-        sendData();
+        sendData(formData);
       });
     };
   }, []);
