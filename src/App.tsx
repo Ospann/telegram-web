@@ -19,7 +19,7 @@ const App = () => {
     date: initialDate,
     comment: '',
   });
-
+  console.log(formData)
   const sendData = () => {
     fetch('https://test.maxinum.kz/api/hours/', {
       method: 'POST',
