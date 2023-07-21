@@ -10,10 +10,11 @@ type FormData = {
   minute: string;
   date: string;
   comment: string;
+  user: string;
 }
 
 const App = () => {
-  const { onShowButton, onHideButton, tg } = useTelegram();
+  const { onShowButton, onHideButton, tg, user } = useTelegram();
   const today = new Date();
   const initialDate = `${today.getFullYear()}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
 
@@ -27,28 +28,29 @@ const App = () => {
     minute: '00',
     date: initialDate,
     comment: '',
+    user: user,
   });
 
-  const sendData = (formDataToSend: FormData) => {
+  const sendData = () => {
     fetch('https://test.maxinum.kz/api/hours/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(formDataToSend),
+      body: JSON.stringify(formData),
     })
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-        setFormData({
-          client: '',
-          project: '',
-          hour: '00',
-          minute: '00',
-          date: initialDate,
-          comment: '',
-        });
+        // setFormData({
+        //   client: '',
+        //   project: '',
+        //   hour: '00',
+        //   minute: '00',
+        //   date: initialDate,
+        //   comment: '',
+        // });
         return response.json();
       })
       .then((data) => {
@@ -69,20 +71,17 @@ const App = () => {
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
-  }, []);
 
-  useEffect(() => {
     tg.onEvent('mainButtonClicked', () => {
-      sendData(formData);
+      sendData();
     });
 
     return () => {
       tg.offEvent('mainButtonClicked', () => {
-        sendData(formData);
+        sendData();
       });
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formData, tg])
+  }, []);
 
   useEffect(() => {
     if (
