@@ -55,7 +55,6 @@ const App = () => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-        setMessage(formData.hour);
         resetFormData();
         return response.json();
       })
@@ -80,15 +79,13 @@ const App = () => {
   }, []);
 
   useEffect(() => {
+    tg.offEvent('mainButtonClicked', () => {
+      sendData(formData);
+    });
     tg.onEvent('mainButtonClicked', () => {
       sendData(formData);
     });
 
-    return () => {
-      tg.offEvent('mainButtonClicked', () => {
-        sendData(formData);
-      });
-    };
   }, [formData])
 
   useEffect(() => {
