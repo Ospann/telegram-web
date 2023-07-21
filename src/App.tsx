@@ -31,27 +31,26 @@ const App = () => {
   // )
 
   tg.MainButton.onClick = () => {
-      setFormData({
-        client: '',
-        project: '',
-        hour: '00',
-        minute: '00',
-        date: initialDate,
-        comment: '',
-      })
-    }
+    setFormData({
+      client: '',
+      project: '',
+      hour: '00',
+      minute: '00',
+      date: initialDate,
+      comment: '',
+    })
+  }
 
   useEffect(() => {
-    setClients([
-      {
-        name: "Qamal",
-        project: ["test", "Абон обслуживание"]
-      },
-      {
-        name: "Fragrancia",
-        project: ["test", "shop"]
-      }])
-  }, [])
+    fetch('https://test.maxinum.kz/api/hours/meta')
+      .then((response) => response.json())
+      .then((data) => {
+        setClients(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
 
   useEffect(() => {
     if (
