@@ -54,7 +54,7 @@ const App = () => {
         console.log(data);
       })
       .catch((error) => {
-        setMessage(error);
+        setMessage(error.message);
         console.error('Error during fetch:', error);
       });
   }, [formData]);
