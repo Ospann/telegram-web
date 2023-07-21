@@ -28,6 +28,7 @@ const App = () => {
     date: initialDate,
     comment: '',
   });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const sendData = (formDataToSend: FormData) => {
     fetch('https://test.maxinum.kz/api/hours/', {
       method: 'POST',
@@ -68,7 +69,9 @@ const App = () => {
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
+  }, []);
 
+  useEffect(() => {
     tg.onEvent('mainButtonClicked', () => {
       sendData(formData);
     });
@@ -78,7 +81,7 @@ const App = () => {
         sendData(formData);
       });
     };
-  }, []);
+  }, [formData, sendData, tg])
 
   useEffect(() => {
     if (
