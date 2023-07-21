@@ -14,7 +14,7 @@ type FormData = {
 }
 
 const App = () => {
-  const { onShowButton, onHideButton, tg, user } = useTelegram();
+  const { onShowButton, onHideButton, tg } = useTelegram();
   const today = new Date();
   const initialDate = `${today.getFullYear()}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
 
@@ -67,6 +67,7 @@ const App = () => {
         setMessage(error);
         console.error('Error during fetch:', error);
       });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formData, initialDate]);
 
   useEffect(() => {
