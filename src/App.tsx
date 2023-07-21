@@ -28,7 +28,7 @@ const App = () => {
     date: initialDate,
     comment: '',
   });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
   const sendData = (formDataToSend: FormData) => {
     fetch('https://test.maxinum.kz/api/hours/', {
       method: 'POST',
@@ -81,7 +81,8 @@ const App = () => {
         sendData(formData);
       });
     };
-  }, [formData, sendData, tg])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formData, tg])
 
   useEffect(() => {
     if (
