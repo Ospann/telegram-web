@@ -92,6 +92,8 @@ const App = () => {
     HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
   >) => {
     const { name, value } = target;
+    if (name === 'hour' && Number(value) > 23) return;
+    if (name === 'minute' && Number(value) > 59) return;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -148,7 +150,7 @@ const App = () => {
           name="minute"
           placeholder="00"
           max="59"
-          value={parseInt(formData.minute, 10)} 
+          value={parseInt(formData.minute, 10)}
           onChange={handleChange}
         />
       </div>
