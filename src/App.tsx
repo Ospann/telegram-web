@@ -18,17 +18,6 @@ const App = () => {
     comment: '',
   });
 
-  //Function after submit button
-  // tg.MainButton.onClick(
-  //   setFormData({
-  //     client: '',
-  //     project: '',
-  //     hour: '00',
-  //     minute: '00',
-  //     date: initialDate,
-  //     comment: '',
-  //   })
-  // )
   tg.onEvent('mainButtonClicked', () => {
     setFormData({
       client: '',
@@ -38,6 +27,36 @@ const App = () => {
       date: initialDate,
       comment: '',
     });
+  });
+
+  tg.onEvent('mainButtonClicked', () => {
+    fetch('https://test.maxinum.kz/api/hours/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        setFormData({
+          client: '',
+          project: '',
+          hour: '00',
+          minute: '00',
+          date: initialDate,
+          comment: '',
+        });
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error('Error during fetch:', error);
+      });
   });
 
   useEffect(() => {
