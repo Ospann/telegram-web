@@ -7,6 +7,7 @@ declare global {
 }
 
 const tg = window.Telegram.WebApp;
+tg.expand();
 
 const useTelegram = () => {
   const onClose = () => {
