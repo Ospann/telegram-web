@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, useEffect } from 'react';
+import { useState, ChangeEvent, useEffect, useCallback } from 'react';
 import useTelegram from './utils/hooks/useTelegram';
 
 type Project = { name: string; projects: string[]; }
@@ -31,7 +31,7 @@ const App = () => {
     user: user,
   });
 
-  const sendData = () => {
+  const sendData = useCallback(() => {
     fetch('https://test.maxinum.kz/api/hours/', {
       method: 'POST',
       headers: {
@@ -43,14 +43,15 @@ const App = () => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-        // setFormData({
-        //   client: '',
-        //   project: '',
-        //   hour: '00',
-        //   minute: '00',
-        //   date: initialDate,
-        //   comment: '',
-        // });
+        setFormData({
+          client: '',
+          project: '',
+          hour: '00',
+          minute: '00',
+          date: initialDate,
+          comment: '',
+          user: user,
+        });
         return response.json();
       })
       .then((data) => {
@@ -60,7 +61,7 @@ const App = () => {
         setMessage(error);
         console.error('Error during fetch:', error);
       });
-  }
+  }, [formData, initialDate, user]);
 
   useEffect(() => {
     fetch('https://test.maxinum.kz/api/hours/meta')
