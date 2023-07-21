@@ -19,7 +19,7 @@ const App = () => {
   const initialDate = `${today.getFullYear()}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
 
   const [clients, setClients] = useState<Project[]>();
-  const [message, setMessage] = useState();
+  const [message, setMessage] = useState<string>();
   const open = Boolean(message)
   const [formData, setFormData] = useState<FormData>({
     client: '',
@@ -43,8 +43,6 @@ const App = () => {
     });
   };
 
-  console.log(formData)
-
   const sendData = useCallback(() => {
     fetch('https://test.maxinum.kz/api/hours/', {
       method: 'POST',
@@ -57,6 +55,7 @@ const App = () => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
+        setMessage(formData.client);
         resetFormData();
         return response.json();
       })
@@ -67,7 +66,7 @@ const App = () => {
         setMessage(error);
         console.error('Error during fetch:', error);
       });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formData, initialDate]);
 
   useEffect(() => {
