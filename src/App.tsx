@@ -64,6 +64,11 @@ const App = () => {
     tg.onEvent('mainButtonClicked', () => {
       sendData();
     });
+    return () => {
+      tg.offEvent('mainButtonClicked', () => {
+        sendData();
+      });
+    };
   }, []);
 
   useEffect(() => {
