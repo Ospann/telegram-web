@@ -1,7 +1,7 @@
 import { useState, ChangeEvent, useEffect } from 'react';
 import useTelegram from './utils/hooks/useTelegram';
 
-type Project = { name: string; project: string[]; }
+type Project = { name: string; projects: string[]; }
 
 const App = () => {
   const { onShowButton, onHideButton, tg } = useTelegram();
@@ -152,7 +152,7 @@ const App = () => {
         {formData.client &&
           clients
             ?.find((client) => client.name === formData.client)
-            ?.project.map((project) => (
+            ?.projects.map((project) => (
               <option key={project} value={project}>
                 {project}
               </option>
