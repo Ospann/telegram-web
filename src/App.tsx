@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, useEffect, useCallback } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 import useTelegram from './utils/hooks/useTelegram';
 
 type Project = { name: string; projects: string[]; }
