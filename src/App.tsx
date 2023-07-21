@@ -29,7 +29,7 @@ const App = () => {
   //     comment: '',
   //   })
   // )
-  tg.onEvent('mainButtonClicked',
+  tg.onEvent('mainButtonClicked', () => {
     setFormData({
       client: '',
       project: '',
@@ -37,7 +37,8 @@ const App = () => {
       minute: '00',
       date: initialDate,
       comment: '',
-    }))
+    });
+  });
 
   useEffect(() => {
     fetch('https://test.maxinum.kz/api/hours/meta')
