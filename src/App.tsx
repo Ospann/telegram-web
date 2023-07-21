@@ -43,13 +43,13 @@ const App = () => {
     });
   };
 
-  const sendData = useCallback(() => {
+  const sendData = (sendFormData: FormData) => {
     fetch('https://test.maxinum.kz/api/hours/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(sendFormData),
     })
       .then((response) => {
         if (!response.ok) {
@@ -66,8 +66,7 @@ const App = () => {
         setMessage(error);
         console.error('Error during fetch:', error);
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formData, initialDate]);
+  };
 
   useEffect(() => {
     fetch('https://test.maxinum.kz/api/hours/meta')
@@ -78,17 +77,19 @@ const App = () => {
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
+  }, []);
 
+  useEffect(() => {
     tg.onEvent('mainButtonClicked', () => {
-      sendData();
+      sendData(formData);
     });
 
     return () => {
       tg.offEvent('mainButtonClicked', () => {
-        sendData();
+        sendData(formData);
       });
     };
-  }, []);
+  }, [formData])
 
   useEffect(() => {
     if (
