@@ -57,7 +57,7 @@ const App = () => {
         console.log(data);
       })
       .catch((error) => {
-        setMessage(error.message);
+        setMessage(error);
         console.error('Error during fetch:', error);
       });
   });
