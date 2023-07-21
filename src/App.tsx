@@ -94,10 +94,18 @@ const App = () => {
     const { name, value } = target;
     if (name === 'hour' && Number(value) > 23) return;
     if (name === 'minute' && Number(value) > 59) return;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    if (name === 'minute') {
+      const roundedMinute = Math.floor(Number(value) / 5) * 5;
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: roundedMinute.toString().padStart(2, '0'),
+      }));
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
   };
 
   return (
@@ -141,16 +149,14 @@ const App = () => {
           placeholder="00"
           type="number"
           name="hour"
-          max="23"
-          value={parseInt(formData.hour, 10)}
+          value={formData.hour}
           onChange={handleChange}
         />
         <input
           type="number"
           name="minute"
           placeholder="00"
-          max="59"
-          value={parseInt(formData.minute, 10)}
+          value={formData.minute}
           onChange={handleChange}
         />
       </div>
