@@ -14,7 +14,7 @@ type FormData = {
 }
 
 const App = () => {
-  const { onShowButton, onHideButton, tg } = useTelegram();
+  const { onShowButton, onHideButton, tg, user } = useTelegram();
   const today = new Date();
   const initialDate = `${today.getFullYear()}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
 
@@ -28,7 +28,7 @@ const App = () => {
     minute: '00',
     date: initialDate,
     comment: '',
-    user: '',
+    user: user.id,
   });
 
   const resetFormData = () => {
@@ -39,7 +39,7 @@ const App = () => {
       minute: '00',
       date: initialDate,
       comment: '',
-      user: '',
+      user: user.id,
     });
   };
 
