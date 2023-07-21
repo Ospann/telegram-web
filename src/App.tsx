@@ -97,35 +97,35 @@ const App = () => {
     }));
   };
 
-  // Обработчик окончания тяги для часов
-  const handleHourDragEnd = (event: React.TouchEvent<HTMLInputElement>) => {
-    event.preventDefault();
-    const startY = parseInt(event.currentTarget.dataset.startY || '0', 10);
-    const endY = event.changedTouches[0].clientY;
-    const diff = startY - endY;
-    const increment = diff > 0 ? 1 : -1;
-    let value = parseInt(formData.hour, 10) + increment;
-    value = Math.min(Math.max(value, 0), 23);
-    setFormData((prevData) => ({
-      ...prevData,
-      hour: value.toString().padStart(2, '0'),
-    }));
-  };
+  // // Обработчик окончания тяги для часов
+  // const handleHourDragEnd = (event: React.TouchEvent<HTMLInputElement>) => {
+  //   event.preventDefault();
+  //   const startY = parseInt(event.currentTarget.dataset.startY || '0', 10);
+  //   const endY = event.changedTouches[0].clientY;
+  //   const diff = startY - endY;
+  //   const increment = diff > 0 ? 1 : -1;
+  //   let value = parseInt(formData.hour, 10) + increment;
+  //   value = Math.min(Math.max(value, 0), 23);
+  //   setFormData((prevData) => ({
+  //     ...prevData,
+  //     hour: value.toString().padStart(2, '0'),
+  //   }));
+  // };
 
-  // Обработчик окончания тяги для минут
-  const handleMinuteDragEnd = (event: React.TouchEvent<HTMLInputElement>) => {
-    event.preventDefault();
-    const startY = parseInt(event.currentTarget.dataset.startY || '0', 10);
-    const endY = event.changedTouches[0].clientY;
-    const diff = startY - endY;
-    const increment = diff > 0 ? 5 : -5;
-    let value = parseInt(formData.minute, 10) + increment;
-    value = Math.min(Math.max(value, 0), 59);
-    setFormData((prevData) => ({
-      ...prevData,
-      minute: value.toString().padStart(2, '0'),
-    }));
-  };
+  // // Обработчик окончания тяги для минут
+  // const handleMinuteDragEnd = (event: React.TouchEvent<HTMLInputElement>) => {
+  //   event.preventDefault();
+  //   const startY = parseInt(event.currentTarget.dataset.startY || '0', 10);
+  //   const endY = event.changedTouches[0].clientY;
+  //   const diff = startY - endY;
+  //   const increment = diff > 0 ? 5 : -5;
+  //   let value = parseInt(formData.minute, 10) + increment;
+  //   value = Math.min(Math.max(value, 0), 59);
+  //   setFormData((prevData) => ({
+  //     ...prevData,
+  //     minute: value.toString().padStart(2, '0'),
+  //   }));
+  // };
 
 
   // Функция для изменения значения часов при тяге
