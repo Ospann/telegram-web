@@ -1,31 +1,23 @@
 import { useState, ChangeEvent, useEffect, useCallback } from 'react';
 import useTelegram from './utils/hooks/useTelegram';
-
-type Project = { name: string; projects: string[]; }
-
-type FormData = {
-  client: string;
-  project: string;
-  hour: string;
-  minute: string;
-  date: string;
-  comment: string;
-  user: string;
-}
+import IProject from './utils/interfaces/IProjects';
+import IFormData from './utils/interfaces/IFormData';
+import validation from './utils/helpers/validation';
 
 const App = () => {
   const { onShowButton, onHideButton, tg, user } = useTelegram();
   const today = new Date();
   const initialDate = `${today.getFullYear()}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
 
-  const [clients, setClients] = useState<Project[]>();
+  const [clients, setClients] = useState<IProject[]>();
   const [message, setMessage] = useState<string>();
-  const open = Boolean(message)
-  const [formData, setFormData] = useState<FormData>({
+  const open = Boolean(message);
+
+  const [formData, setFormData] = useState<IFormData>({
     client: '',
     project: '',
-    hour: '00',
-    minute: '00',
+    hour: '',
+    minute: '',
     date: initialDate,
     comment: '',
     user: user.id,
@@ -35,8 +27,8 @@ const App = () => {
     setFormData({
       client: '',
       project: '',
-      hour: '00',
-      minute: '00',
+      hour: '',
+      minute: '',
       date: initialDate,
       comment: '',
       user: user.id,
@@ -87,12 +79,7 @@ const App = () => {
   }, [sendData, tg])
 
   useEffect(() => {
-    if (
-      formData.client !== '' &&
-      formData.project !== '' &&
-      (formData.hour !== '00' || formData.minute !== '00') &&
-      formData.date !== ''
-    ) {
+    if (validation(formData)) {
       onShowButton();
     } else {
       onHideButton();
@@ -114,6 +101,7 @@ const App = () => {
   return (
     <div className="input-form">
       <div style={{
+        border: '1px solid gray',
         display: open ? 'block' : 'none'
       }}>
         {message}
@@ -152,7 +140,7 @@ const App = () => {
           type="number"
           name="hour"
           max="23"
-          value={formData.hour}
+          value={parseInt(formData.hour, 10)}
           onChange={handleChange}
         />
         <input
@@ -160,7 +148,7 @@ const App = () => {
           name="minute"
           placeholder="00"
           max="59"
-          value={formData.minute}
+          value={parseInt(formData.minute, 10)} 
           onChange={handleChange}
         />
       </div>
@@ -174,7 +162,7 @@ const App = () => {
         placeholder="comment..."
         name="comment"
         cols={30}
-        rows={4}
+        rows={5}
         style={{ resize: 'none' }}
         value={formData.comment}
         onChange={handleChange}
