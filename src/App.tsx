@@ -28,8 +28,22 @@ const App = () => {
     minute: '00',
     date: initialDate,
     comment: '',
-    user: user,
+    user: user.id,
   });
+
+  const resetFormData = () => {
+    setFormData({
+      client: '',
+      project: '',
+      hour: '00',
+      minute: '00',
+      date: initialDate,
+      comment: '',
+      user: user.id,
+    });
+  };
+
+  console.log(formData)
 
   const sendData = useCallback(() => {
     fetch('https://test.maxinum.kz/api/hours/', {
@@ -43,15 +57,7 @@ const App = () => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-        setFormData({
-          client: '',
-          project: '',
-          hour: '00',
-          minute: '00',
-          date: initialDate,
-          comment: '',
-          user: user,
-        });
+        resetFormData();
         return response.json();
       })
       .then((data) => {
