@@ -13,14 +13,6 @@ const useTelegram = () => {
     tg.close();
   };
 
-  const onToggleButton = () => {
-    if (tg.MainButton.isVisible) {
-      tg.MainButton.hide();
-    } else {
-      tg.MainButton.show();
-    }
-  };
-
   const onShowButton = () => {
     tg.MainButton.text = "SUBMIT";
     tg.MainButton.show();
@@ -32,7 +24,6 @@ const useTelegram = () => {
 
   return {
     onClose,
-    onToggleButton,
     onShowButton,
     onHideButton,
     tg,
