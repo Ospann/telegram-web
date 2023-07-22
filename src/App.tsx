@@ -72,8 +72,8 @@ const App = () => {
         setClients(data);
       })
       .catch((error) => {
-        console.log(error.message); // Error message received from the server
-        setMessage(error.message);
+        // console.log(error.message); // Error message received from the server
+        setMessage("You havent permission for this form");
         setTimeout(() => {
           tg.close();
         }, 3000)
