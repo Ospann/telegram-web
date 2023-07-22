@@ -61,6 +61,10 @@ const App = () => {
   }, [formData]);
 
   useEffect(() => {
+    if (!user.id) {
+      return;
+    }
+
     fetch('https://test.maxinum.kz/api/hours/meta', {
       headers: {
         'telegram_id': user.id,
@@ -77,7 +81,7 @@ const App = () => {
         }, 3000)
         console.error('Error fetching data:', error);
       });
-  }, []);
+  }, [tg, user.id]);
 
   useEffect(() => {
     tg.onEvent('mainButtonClicked', sendData);
