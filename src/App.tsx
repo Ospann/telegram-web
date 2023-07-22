@@ -66,11 +66,8 @@ const App = () => {
       return;
     }
     resetFormData();
-    fetch('https://test.maxinum.kz/api/hours/meta', {
-      headers: {
-        'telegram_id': user.id,
-      }
-    })
+    const url = `https://test.maxinum.kz/api/hours/meta?telegram_id=${user.id}`;
+    fetch(url)
       .then((response) => response.json())
       .then((data) => {
         setClients(data);
