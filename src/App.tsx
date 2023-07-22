@@ -71,12 +71,13 @@ const App = () => {
       try {
         const response = await fetch(url);
         if (!response.ok) {
-          throw new Error("Ошибка запроса: " + response.statusText);
+          const errorData = await response.json();
+          throw new Error(errorData.error);
         }
         const data = await response.json();
         setClients(data);
-      } catch (error) {
-        setMessage("У вас нет разрешения на использование этой формы");
+      } catch (error: any) {
+        setMessage(error.message as string);
         console.error('Ошибка при получении данных:', error);
         setTimeout(() => {
           tg.close();
