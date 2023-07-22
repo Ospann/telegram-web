@@ -72,6 +72,7 @@ const App = () => {
         setClients(data);
       })
       .catch((error) => {
+        console.log(error);
         setMessage(error);
         setTimeout(() => {
           tg.close();
