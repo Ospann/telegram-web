@@ -68,10 +68,7 @@ input[type="date"] {
 /* Кастомные стили для элемента <input type="date"> */
 input[type="date"] {
   width: 100%;
-  padding: 8px;
-  font-size: 14px;
   border: 1px solid #ccc;
-  border-radius: 4px;
   box-sizing: border-box;
   /* Учитываем padding и border в ширине */
 }
