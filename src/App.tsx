@@ -61,7 +61,6 @@ const App = () => {
   }, [formData]);
 
   useEffect(() => {
-    console.log(user)
     if (!user) {
       return;
     }
