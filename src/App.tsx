@@ -39,6 +39,7 @@ const App = () => {
     fetch('https://test.maxinum.kz/api/hours/', {
       method: 'POST',
       headers: {
+        'telegram_id': user.id,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(formData),
@@ -60,7 +61,11 @@ const App = () => {
   }, [formData]);
 
   useEffect(() => {
-    fetch('https://test.maxinum.kz/api/hours/meta')
+    fetch('https://test.maxinum.kz/api/hours/meta', {
+      headers: {
+        'telegram_id': user.id,
+      }
+    })
       .then((response) => response.json())
       .then((data) => {
         setClients(data);
