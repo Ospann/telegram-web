@@ -35,6 +35,12 @@ const App = () => {
     });
   };
 
+  const clearMessage = () => {
+    setTimeout(() => {
+      setMessage('')
+    }, 2000)
+  }
+
   const sendData = useCallback(() => {
     fetch('https://test.maxinum.kz/api/hours/', {
       method: 'POST',
@@ -53,6 +59,8 @@ const App = () => {
       })
       .then((data) => {
         console.log(data);
+        setMessage(data.message);
+        clearMessage();
       })
       .catch((error) => {
         setMessage(error.message);
