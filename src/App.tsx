@@ -61,19 +61,22 @@ const App = () => {
   }, [formData]);
 
   useEffect(() => {
-    // fetch('https://test.maxinum.kz/api/hours/meta', {
-    //   headers: {
-    //     'telegram_id': user.id,
-    //   }
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     setClients(data);
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error fetching data:', error);
-    //   });
-    setClients([]);
+    fetch('https://test.maxinum.kz/api/hours/meta', {
+      headers: {
+        'telegram_id': user.id,
+      }
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setClients(data);
+      })
+      .catch((error) => {
+        setMessage(error);
+        setTimeout(() => {
+          tg.close();
+        }, 3000)
+        console.error('Error fetching data:', error);
+      });
   }, []);
 
   useEffect(() => {
@@ -109,10 +112,12 @@ const App = () => {
 
   return (
     <div className="input-form">
-      <div style={{
-        border: '1px solid gray',
-        display: open ? 'block' : 'none'
-      }}>
+      <div
+        className='message'
+        style={{
+          border: '1px solid gray',
+          display: open ? 'block' : 'none'
+        }}>
         {message}
       </div>
       <select
