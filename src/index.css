@@ -61,6 +61,24 @@ input {
 }
 
 input[type="date"] {
+  -webkit-appearance: none;
+  /* Убираем стандартные стили Safari */
+}
+
+/* Кастомные стили для элемента <input type="date"> */
+input[type="date"] {
   width: 100%;
-  /* box-sizing: border-box; */
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  /* Учитываем padding и border в ширине */
+}
+
+/* Дополнительные стили для выбора даты, чтобы выглядело единообразно во всех браузерах */
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-clear-button {
+  display: none;
+  /* Убираем спиннер и кнопку "очистить" в Safari */
 }
