@@ -61,18 +61,18 @@ const App = () => {
   }, [formData]);
 
   useEffect(() => {
-    fetch('https://test.maxinum.kz/api/hours/meta', {
-      headers: {
-        'telegram_id': user.id,
-      }
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setClients(data);
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-      });
+    // fetch('https://test.maxinum.kz/api/hours/meta', {
+    //   headers: {
+    //     'telegram_id': user.id,
+    //   }
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     setClients(data);
+    //   })
+    //   .catch((error) => {
+    //     console.error('Error fetching data:', error);
+    //   });
   }, []);
 
   useEffect(() => {
