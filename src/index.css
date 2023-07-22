@@ -40,7 +40,7 @@ input {
 
 .time-form {
   display: flex;
-  width: 80%;
+  width: 100%;
   gap: 2rem;
 }
 
