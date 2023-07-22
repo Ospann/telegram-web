@@ -78,7 +78,6 @@ const App = () => {
         setClients(data);
       } catch (error: any) {
         setMessage(error.message as string);
-        console.error('Ошибка при получении данных:', error);
         setTimeout(() => {
           tg.close();
         }, 3000);
