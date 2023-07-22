@@ -20,7 +20,7 @@ const App = () => {
     minute: '',
     date: initialDate,
     comment: '',
-    user: user.id,
+    user: '',
   });
 
   const resetFormData = () => {
@@ -65,7 +65,7 @@ const App = () => {
     if (!user) {
       return;
     }
-
+    resetFormData();
     fetch('https://test.maxinum.kz/api/hours/meta', {
       headers: {
         'telegram_id': user.id,
