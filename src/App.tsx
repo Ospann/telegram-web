@@ -66,20 +66,27 @@ const App = () => {
     }
     resetFormData();
     const url = `https://test.maxinum.kz/api/hours/meta?telegram_id=${user.id}`;
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error("Ошибка запроса: " + response.statusText);
+        }
+        const data = await response.json();
         setClients(data);
-      })
-      .catch((error) => {
-        // console.log(error.message); // Error message received from the server
-        setMessage("You havent permission for this form");
+      } catch (error) {
+        setMessage("У вас нет разрешения на использование этой формы");
+        console.error('Ошибка при получении данных:', error);
         setTimeout(() => {
           tg.close();
-        }, 3000)
-        console.error('Error fetching data:', error);
-      });
+        }, 3000);
+      }
+    };
+
+    fetchData();
   }, [tg, user]);
+
 
   useEffect(() => {
     tg.onEvent('mainButtonClicked', sendData);
