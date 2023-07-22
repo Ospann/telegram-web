@@ -61,6 +61,7 @@ const App = () => {
   }, [formData]);
 
   useEffect(() => {
+    console.log(user.id)
     if (!user.id) {
       return;
     }
