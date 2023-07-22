@@ -72,8 +72,8 @@ const App = () => {
         setClients(data);
       })
       .catch((error) => {
-        console.log(error);
-        setMessage(error);
+        console.log(error.message); // Error message received from the server
+        setMessage(error.message);
         setTimeout(() => {
           tg.close();
         }, 3000)
