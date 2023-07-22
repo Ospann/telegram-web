@@ -73,6 +73,7 @@ const App = () => {
     //   .catch((error) => {
     //     console.error('Error fetching data:', error);
     //   });
+    setClients([]);
   }, []);
 
   useEffect(() => {
