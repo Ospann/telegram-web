@@ -61,8 +61,8 @@ const App = () => {
   }, [formData]);
 
   useEffect(() => {
-    console.log(user.id)
-    if (!user.id) {
+    console.log(user)
+    if (!user) {
       return;
     }
 
@@ -82,7 +82,7 @@ const App = () => {
         }, 3000)
         console.error('Error fetching data:', error);
       });
-  }, [tg, user.id]);
+  }, [tg, user]);
 
   useEffect(() => {
     tg.onEvent('mainButtonClicked', sendData);
