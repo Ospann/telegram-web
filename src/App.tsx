@@ -3,15 +3,15 @@ import useTelegram from './utils/hooks/useTelegram';
 import IProject from './utils/interfaces/IProjects';
 import IFormData from './utils/interfaces/IFormData';
 import validation from './utils/helpers/validation';
+import { Input, Select, Textarea, useToast, Box } from '@chakra-ui/react';
 
 const App = () => {
+  const toast = useToast();
   const { onShowButton, onHideButton, tg, user } = useTelegram();
   const today = new Date();
   const initialDate = `${today.getFullYear()}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
 
   const [clients, setClients] = useState<IProject[]>();
-  const [message, setMessage] = useState<string>();
-  const open = Boolean(message);
 
   const [formData, setFormData] = useState<IFormData>({
     client: '',
@@ -35,12 +35,6 @@ const App = () => {
     });
   };
 
-  const clearMessage = () => {
-    setTimeout(() => {
-      setMessage('')
-    }, 2000)
-  }
-
   const sendData = useCallback(() => {
     fetch('https://test.maxinum.kz/api/hours/', {
       method: 'POST',
@@ -58,13 +52,23 @@ const App = () => {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
-        setMessage(data.message);
-        clearMessage();
+        toast({
+          title: 'Success',
+          description: data.message,
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        });
       })
       .catch((error) => {
-        setMessage(error.message);
-        console.error('Error during fetch:', error);
+        toast({
+          title: 'Error',
+          description: error.message,
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        });
+
       });
   }, [formData]);
 
@@ -85,7 +89,13 @@ const App = () => {
         const data = await response.json();
         setClients(data);
       } catch (error: any) {
-        setMessage(error.message as string);
+        toast({
+          title: 'Error',
+          description: error.message,
+          status: 'error',
+          duration: 2000,
+          isClosable: true,
+        });
         setTimeout(() => {
           tg.close();
         }, 3000);
@@ -128,16 +138,8 @@ const App = () => {
   };
 
   return (
-    <div className="input-form">
-      <div
-        className='message'
-        style={{
-          border: '1px solid gray',
-          display: open ? 'block' : 'none'
-        }}>
-        {message}
-      </div>
-      <select
+    <Box className="input-form">
+      <Select
         name="client"
         value={formData.client}
         onChange={handleChange}
@@ -148,8 +150,8 @@ const App = () => {
             {client.name}
           </option>
         ))}
-      </select>
-      <select
+      </Select>
+      <Select
         name="project"
         value={formData.project}
         onChange={handleChange}
@@ -164,30 +166,30 @@ const App = () => {
                 {project}
               </option>
             ))}
-      </select>
-      <div className='time-form'>
-        <input
+      </Select>
+      <Box className='time-form'>
+        <Input
           placeholder="00"
           type="number"
           name="hour"
           value={formData.hour}
           onChange={handleChange}
         />
-        <input
+        <Input
           type="number"
           name="minute"
           placeholder="00"
           value={formData.minute}
           onChange={handleChange}
         />
-      </div>
-      <input
+      </Box>
+      <Input
         type="date"
         name="date"
         value={formData.date}
         onChange={handleChange}
       />
-      <textarea
+      <Textarea
         placeholder="comment..."
         name="comment"
         cols={30}
@@ -196,7 +198,7 @@ const App = () => {
         value={formData.comment}
         onChange={handleChange}
       />
-    </div>
+    </Box>
   );
 };
 
