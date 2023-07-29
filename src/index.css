@@ -23,41 +23,10 @@ body {
   align-items: center;
 }
 
-.input-form select,
-input,
-textarea {
-  border-radius: 5px;
-  border: 1px solid #e6e6e6;
-  padding: 10px;
-  width: 100%;
-  font-size: 1.4rem;
-}
-
-.input-form select,
-input {
-  text-align: center;
-}
-
 .time-form {
   display: flex;
   width: 100%;
   gap: 2rem;
-}
-
-.message {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 80%;
-  max-width: 400px;
-  color: black;
-  background-color: #F7F056;
-  border-radius: 10px;
-  border: 1px double black;
-  padding: 16px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 9999;
 }
 
 input[type="date"] {
