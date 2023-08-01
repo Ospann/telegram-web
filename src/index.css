@@ -23,7 +23,9 @@ body {
   align-items: center;
 }
 
-.input-form select {
+.input-form select,
+.input-form input,
+.input-form textarea {
   background: #fff !important;
   color: black !important
 }
