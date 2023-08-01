@@ -23,6 +23,11 @@ body {
   align-items: center;
 }
 
+.input-form select {
+  background: #fff !important;
+  color: black !important
+}
+
 .time-form {
   display: flex;
   width: 100%;
