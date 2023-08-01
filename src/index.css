@@ -8,11 +8,13 @@
 }
 
 body {
-  background: var(--tg-theme-bg-color);
-  color: var(--tg-theme-text-color);
+  background: var(--tg-theme-bg-color) !important;
+  color: var(--tg-theme-text-color) !important;
 }
 
 .input-form {
+  background: var(--tg-theme-bg-color) !important;
+  color: var(--tg-theme-text-color) !important;
   width: 80%;
   margin-left: auto;
   margin-right: auto;
