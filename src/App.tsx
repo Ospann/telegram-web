@@ -36,6 +36,7 @@ const App = () => {
   };
 
   const sendData = useCallback(() => {
+    onHideButton();
     fetch('https://test.maxinum.kz/api/hours/', {
       method: 'POST',
       headers: {
